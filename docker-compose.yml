@@ -1,0 +1,9 @@
+version: '2.4'
+services:
+  valhalla-mingw64:
+    image: gisops/valhalla-mingw64:latest
+    container_name: valhalla_mingw64
+    build:
+      context: .
+    volumes:
+      - ./workspace:/workspace
