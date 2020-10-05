@@ -2,9 +2,7 @@
 
 Building the valhalla project this way lets you clone & edit Valhalla sources on the host machine, while the build happens inside the container:
 
-1. Build the image to
-  - set up environment and dependencies
-  - clone the right valhalla branch
+1. Build the image to set up environment and dependencies:
 
 ```
 docker-compose build
