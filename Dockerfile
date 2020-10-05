@@ -15,17 +15,12 @@ RUN echo all > /etc/rpm/macros.image-language-conf && \
     mingw64-libspatialite \
     mingw64-geos \
     mingw64-python3 \
+    mingw64-python3-setuptools \
     nano \
     protobuf-compiler \
     wget \
     which
 
-# Install and patch boost-python, see commands MD
-RUN wget https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.bz2 && \
-  tar -xjf boost_1_73_0.tar.bz2 && \
-  rm boost_1_73_0.tar.bz2
-  # Add the command(s) to patch the source with boost_1_73_0_patches
-  # taken from
-
 WORKDIR /workspace
+
 CMD ["tail", "-f", "/dev/null"]

@@ -1,10 +1,11 @@
-## Build Valhalla on MinGW64
+## Build Valhalla on MinGW64 with Python support
 
 1. Run CMake to configure
 ```
-mkdir build
-cd build
-mingw64-cmake  \
+sudo rm -r valhalla/build
+mkdir $_
+cd $_
+mingw64-cmake  .. \
     -DCMAKE_CROSS_COMPILING=1 \
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_TOOLS=ON \
@@ -15,10 +16,11 @@ mingw64-cmake  \
     -DENABLE_TESTS=OFF \
     -DENABLE_BENCHMARKS=OFF \
     -DLOGGING_LEVEL=DEBUG \
-    # Needs to be specified explicitly
     -DBoost_PROGRAM_OPTIONS_LIBRARY=/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libboost_program_options-mt-x64.dll.a \
-    ..
-
+    -DBoost_PYTHON_LIBRARY=/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libboost_python39-mt-x64.dll.a \
+    -DPYTHON_EXECUTABLE=/usr/x86_64-w64-mingw32/bin/python3 \
+    -DPYTHON_INCLUDE_DIR=/usr/x86_64-w64-mingw32/sys-root/mingw/include/python3.9 \
+    -DPYTHON_LIBRARY=/usr/x86_64-w64-mingw32/sys-root/mingw/lib/libpython3.9.dll.a
 ```
 
 2. Run make to build
@@ -47,17 +49,19 @@ cp \
   /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll \
   /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libxml2-2.dll \
   /usr/x86_64-w64-mingw32/sys-root/mingw/bin/zlib1.dll \
-  valhalla_previous/build
+  valhalla/build
 
-cp valhalla_previous/build/src/libvalhalla.dll valhalla_previous/build
+cp valhalla/build/src/libvalhalla.dll* valhalla_previous/build
 ```
 
 4. Zip the relevant modules
 ```
-ls valhalla_previous/build/*valhalla* valhalla_previous/build/*.dll | zip -@ valhalla_mingw64.zip
+ls valhalla/build/*valhalla* valhalla/build/*.dll | zip -@ valhalla_mingw64.zip
 ```
 
-## Fedora package build patches
+## Helpers
+
+### Fedora package build patched packages
 
 from https://blog.aloni.org/posts/how-to-easily-patch-fedora-packages/
 
@@ -117,9 +121,9 @@ dnf install -y noarch/mingw64-protobuf-3.13.0-2.fc34.noarch.rpm
 dnf list installed | grep @@commandline
 ```
 
-## Helpers
+### Build boost.python with MinGW64 on Fedora
 
-### Build Boost with MinGW64 on Fedora
+boost.python is not easy to build generally, here's the recipe for fedora:rawhide.
 
 1. Get the sources
 ```

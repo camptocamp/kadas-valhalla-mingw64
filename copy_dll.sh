@@ -22,10 +22,9 @@ cp \
   /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libxml2-2.dll \
   /usr/x86_64-w64-mingw32/sys-root/mingw/bin/t*.dll \
   /usr/x86_64-w64-mingw32/sys-root/mingw/bin/zlib1.dll \
-  valhalla_previous/build
+  valhalla/build
 
 cp \
-  valhalla_previous/build/src/libvalhalla.dll \
-  valhalla_previous/build/src/libvalhalla.dll.a \
-  valhalla_previous/build/src/bindings/python/valhalla.pyd \
-  valhalla_previous/build
+  valhalla/build/src/libvalhalla.dll \
+  valhalla/build/src/libvalhalla.dll.a \
+  valhalla/build
