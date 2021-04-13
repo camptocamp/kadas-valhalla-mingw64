@@ -3,7 +3,7 @@ FROM fedora:rawhide
 LABEL maintainer=nils@gis-ops.com
 
 RUN echo all > /etc/rpm/macros.image-language-conf && \
-  dnf install -y \
+  dnf install --nogpg -y \
     cmake \
     gcc-c++ \
     git \

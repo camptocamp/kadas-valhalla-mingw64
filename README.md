@@ -13,7 +13,6 @@ docker-compose build
 ```
 git clone --recurse-submodules https://github.com/gis-ops/valhalla.git
 cd valhalla
-git checkout shortestish_mignw_merge
 ```
 
 3. Fire up container which has the current directory exposed in `/workspace`
@@ -26,12 +25,11 @@ docker-compose up -d
 
 ```
 docker exec -it valhalla_mingw64 bash
-chmod +x build.sh cmake.sh copy_dll.sh
-cmake.sh && build.sh && copy_dll.sh
+./cmake.sh && ./build.sh && ./copy_dll.sh
 ```
 
-5. Zip up the build. **Note**, I really copy ALL DLLs which are somehow needed (also some legacy ones, e.g. Python is not needed anymore), will need some testing which ones are relevant/superfluous. Or configure another build to only work with static libraries.. Sounds more painful though..
+5. Zip up the build. **Note**, this copies all .dll's thought necessary, it hasn't been vetted.
 
 ```
-ls valhalla/build/*valhalla* valhalla/build/*.dll | zip -@ valhalla_mingw64.zip
+ls valhalla/build/*valhalla* valhalla/build/*.dll | zip -@ valhalla/build/valhalla_mingw64.zip
 ```
